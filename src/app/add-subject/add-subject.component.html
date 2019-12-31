@@ -1,0 +1,12 @@
+<h2>Add new subject</h2>
+<form #addSubjectForm="ngForm" (ngSubmit)="onSubmit(addSubjectForm.value)">
+    <label>
+        Name:
+        <input type="text" name="subject_name" [(ngModel)]="subject_name">
+    </label>
+    <label>
+        Description:
+        <input type="text" name="subject_description" [(ngModel)]="subject_description">
+    </label>
+    <button type="submit" [disabled]="!subjectAddForm.valid">Add</button>
+</form>

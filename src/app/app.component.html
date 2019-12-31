@@ -1,7 +1,9 @@
 <h1>{{title}}</h1>
-<nav>
-  <a routerLink="/about">About</a>
-  <a routerLink="/tutorials">Tutorials</a>
-  <a routerLink="/ajax">Users</a>
+<nav class="navbar">
+  <a class="navbar-brand" routerLink="/about">About</a>
+  <a class="navbar-brand" routerLink="/tutorials">Tutorials</a>
+  <a class="navbar-brand" routerLink="/ajax">Users</a>
+  <a class="navbar-brand" routerLink="/subject">Subject</a>
 </nav>
 <router-outlet></router-outlet>
+<app-add-subject></app-add-subject>

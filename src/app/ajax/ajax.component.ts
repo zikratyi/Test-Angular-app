@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import {HttpClient} from "@angular/common/http";
 import { HttpService } from '../services/http.service';
 
 @Component({
@@ -13,10 +12,7 @@ export class AjaxComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
-    this.httpService.get("https://reqres.in/api/users").subscribe((result: any) => {
-      console.log(result.data[0]);
-      this.users = result.data; 
-    });
+    this.httpService.getFaculty().subscribe((result:any) =>{console.log(result)});
   }
 
 }
