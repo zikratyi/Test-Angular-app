@@ -1,12 +1,25 @@
 <h3>Add new subject</h3>
-<form #addSubjectForm="ngForm" (ngSubmit)="onSubmit(addSubjectForm.value); subjectName.value=''; subjectDescription.value=''">
+<form
+  #addSubjectForm="ngForm"
+  (ngSubmit)="
+    onSubmit(addSubjectForm.value);
+    subjectName.value = '';
+    subjectDescription.value = ''
+  "
+>
   <label>
     Name:
-    <input #subjectName type="text" name="subject_name" [(ngModel)]="subject_name" />
+    <input
+      #subjectName
+      type="text"
+      name="subject_name"
+      [(ngModel)]="subject_name"
+    />
   </label>
   <label>
     Description:
-    <input #subjectDescription
+    <input
+      #subjectDescription
       type="text"
       name="subject_description"
       [(ngModel)]="subject_description"
@@ -29,32 +42,36 @@
       <td>{{ subject.subject_id }}</td>
       <td>
         <a (click)="editName(subject)">
-          <span *ngIf="subject !== editSubjectName">{{subject.subject_name}}</span>
+          <span *ngIf="subject !== editSubjectName">{{
+            subject.subject_name
+          }}</span>
           <input
             #updateSubjectName
             *ngIf="subject === editSubjectName"
             name="subject_name"
+            value="{{subject.subject_name}}"
+            (blur)="update(subject.subject_id, updateSubjectName.value)"
             (keyup.enter)="update(subject.subject_id, updateSubjectName.value)"
           />
         </a>
       </td>
       <td>
         <a (click)="editDescription(subject)">
-          <span *ngIf="subject !== editSubjectDescription">{{subject.subject_description}}</span>
+          <span *ngIf="subject !== editSubjectDescription">{{
+            subject.subject_description
+          }}</span>
           <input
             #updateSubjectDescription
             *ngIf="subject === editSubjectDescription"
             name="subject_description"
+            value="{{subject.subject_description}}"
+            (blur)="update(subject.subject_id, updateSubjectDescription.value)"
             (keyup.enter)="update(subject.subject_id, updateSubjectDescription.value)"
           />
         </a>
       </td>
       <td>
-        <button
-          class="delete"
-          title="delete subject"
-          (click)="delete(subject)"
-        >
+        <button class="delete" title="delete subject" (click)="delete(subject)">
           x
         </button>
       </td>

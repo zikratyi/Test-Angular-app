@@ -52,12 +52,17 @@ export class SubjectComponent implements OnInit {
   update(id: number, prop: string) {
     if (this.editSubjectName) {
       prop = `{"subject_name": "${prop}"}`;
+      this.updateItem(id, prop);
       this.editSubjectName = undefined;
     }
     if (this.editSubjectDescription) {
       prop = `{"subject_description": "${prop}"}`;
+      this.updateItem(id, prop);
       this.editSubjectDescription = undefined;
     }
+    
+  }
+  updateItem(id: number, prop: string) {
     this.httpService.updateSubject(id, prop).subscribe((result: Subject[]) => {
       console.log(result);
       const index: number = result
