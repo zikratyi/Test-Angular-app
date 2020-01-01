@@ -9,6 +9,7 @@ import { Auth } from './login '
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  login: boolean = false;
   loginForm = new FormGroup({
     user_name: new FormControl(""),
     password: new FormControl("")
@@ -20,6 +21,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit(auth: Auth) {
     this.httpService.authUser(auth).subscribe((result:any) =>{console.log(result)});
+    this.login = true;
   }
-
+  logout() {
+    this.httpService.logout().subscribe((result:any) =>{console.log(result)});
+    this.login = false;
+  }
 }

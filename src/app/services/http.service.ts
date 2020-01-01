@@ -22,6 +22,11 @@ export class HttpService {
     const url = `${this.serverUrl}/login/index`;
     return this.httpClient.post<any>(url, auth, httpOptions);
   }
+  /** GET logout */
+  public logout(): Observable<any> {
+    const url = `${this.serverUrl}/login/logout`;
+    return this.httpClient.get(url);
+  }
   /** GET Faculty*/
   public getFaculty(): Observable<any> {
     const url = `${this.serverUrl}/Faculty/getRecords`;
