@@ -1,17 +1,63 @@
-<h1>Subjects</h1>
+<h3>Add new subject</h3>
+<form #addSubjectForm="ngForm" (ngSubmit)="onSubmit(addSubjectForm.value); subjectName.value=''; subjectDescription.value=''">
+  <label>
+    Name:
+    <input #subjectName type="text" name="subject_name" [(ngModel)]="subject_name" />
+  </label>
+  <label>
+    Description:
+    <input #subjectDescription
+      type="text"
+      name="subject_description"
+      [(ngModel)]="subject_description"
+    />
+  </label>
+  <button type="submit" [disabled]="!subjectAddForm.valid">Add</button>
+</form>
+
+<h3>List Subjects</h3>
 <table class="table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let subject of listSubjects">
-            <td>{{subject.subject_id}}</td>
-            <td>{{subject.subject_name}}</td>
-            <td>{{subject.subject_description}}</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let subject of listSubjects">
+      <td>{{ subject.subject_id }}</td>
+      <td>
+        <a (click)="editName(subject)">
+          <span *ngIf="subject !== editSubjectName">{{subject.subject_name}}</span>
+          <input
+            #updateSubjectName
+            *ngIf="subject === editSubjectName"
+            name="subject_name"
+            (keyup.enter)="update(subject.subject_id, updateSubjectName.value)"
+          />
+        </a>
+      </td>
+      <td>
+        <a (click)="editDescription(subject)">
+          <span *ngIf="subject !== editSubjectDescription">{{subject.subject_description}}</span>
+          <input
+            #updateSubjectDescription
+            *ngIf="subject === editSubjectDescription"
+            name="subject_description"
+            (keyup.enter)="update(subject.subject_id, updateSubjectDescription.value)"
+          />
+        </a>
+      </td>
+      <td>
+        <button
+          class="delete"
+          title="delete subject"
+          (click)="delete(subject)"
+        >
+          x
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

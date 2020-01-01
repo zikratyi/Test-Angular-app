@@ -2,17 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
-import { Subject } from "../subject/subject"
+import { Subject } from "../subject/subject";
+import { Auth } from "../login/login ";
 
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json"
   })
-};
-
-const auth = {
-  username: "admin",
-  password: "dtapi_admin"
 };
 
 @Injectable({
@@ -22,7 +18,7 @@ export class HttpService {
   serverUrl = "http://dtapi.if.ua";
   constructor(private httpClient: HttpClient) {}
   /** POST: auth */
-  authUser(): Observable<any> {
+  authUser(auth: Auth): Observable<any> {
     const url = `${this.serverUrl}/login/index`;
     return this.httpClient.post<any>(url, auth, httpOptions);
   }
@@ -40,5 +36,15 @@ export class HttpService {
     public setSubject(subject: Subject): Observable<any> {
       const url = `${this.serverUrl}/Subject/insertData`;
       return this.httpClient.post(url,subject, httpOptions);
+    }
+    /** UPDATE Subject */
+    public updateSubject(id: number, property: string): Observable<any> {
+      const url = `${this.serverUrl}/Subject/update/${id}`;
+      return this.httpClient.post(url,property, httpOptions);
+    }
+    /** DELETE Subject */
+    public delSubject(subject: Subject): Observable<any> {
+      const url = `${this.serverUrl}/Subject/del/${subject.subject_id}`;
+      return this.httpClient.get(url);
     }
 }
