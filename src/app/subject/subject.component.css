@@ -1,6 +1,10 @@
  a {
      text-decoration: none;
  }
-form, table, h3 {
-  margin: 0px 10px;
+h4 {
+  margin: 10px 10px;
+  text-align: center;
+}
+table {
+  width: 100%;
 }
