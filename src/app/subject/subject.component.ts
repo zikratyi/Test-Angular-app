@@ -13,6 +13,7 @@ export class SubjectComponent implements OnInit {
   listSubjects: Subject[] = [];
   editSubjectName: Subject;
   editSubjectDescription: Subject;
+  displayedColumns = ['id', 'name', 'description', 'but_del']
   /** Create form for add new subject */
   subjectAddForm = new FormGroup({
     subject_name: new FormControl(""),

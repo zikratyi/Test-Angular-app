@@ -1,36 +1,42 @@
 <h3>Add new subject</h3>
 <form
   #addSubjectForm="ngForm"
-  (ngSubmit)="
-    onSubmit(addSubjectForm.value);
-    subjectName.value = '';
-    subjectDescription.value = ''
-  "
+  (ngSubmit)="onSubmit(addSubjectForm.value);"
 >
-  <label>
-    Name:
-    <input
-      #subjectName
-      type="text"
-      name="subject_name"
-      [(ngModel)]="subject_name"
-    />
-  </label>
-  <label>
-    Description:
-    <input
-      #subjectDescription
-      type="text"
-      name="subject_description"
-      [(ngModel)]="subject_description"
-    />
-  </label>
-  <button type="submit" [disabled]="!subjectAddForm.valid">Add</button>
+  <mat-form-field>
+    <input matInput placeholder="Name" name="subject_name" [(ngModel)]="subject_name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Description" name="subject_description" [(ngModel)]="subject_description">
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!subjectAddForm.valid">Add</button>
 </form>
 
 <h3>List Subjects</h3>
-<table class="table-striped">
-  <thead>
+<table mat-table [dataSource]="listSubjects" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let subject"> {{subject.subject_id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let subject"> {{subject.subject_name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef> Description </th>
+    <td mat-cell *matCellDef="let subject"> {{subject.subject_description}} </td>
+  </ng-container>
+  <ng-container matColumnDef="but_del">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let subject"> 
+      <button mat-button color="warn" (click)="delete(subject)">
+        x
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <!-- <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
@@ -76,5 +82,5 @@
         </button>
       </td>
     </tr>
-  </tbody>
+  </tbody> -->
 </table>
