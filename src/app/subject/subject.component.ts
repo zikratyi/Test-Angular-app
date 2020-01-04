@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { HttpService } from "../services/http.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Subject } from "./subject";
+import { MatTableDataSource, MatTable } from '@angular/material';
 
 @Component({
   selector: "app-subject",
@@ -13,6 +14,9 @@ export class SubjectComponent implements OnInit {
   listSubjects: Subject[] = [];
   editSubjectName: Subject;
   editSubjectDescription: Subject;
+  // opts: any = {static: true};
+  @ViewChild('table', {static: true}) table: MatTable<Element>;
+  displayedColumns = ['id', 'name', 'description', 'but_del']
   /** Create form for add new subject */
   subjectAddForm = new FormGroup({
     subject_name: new FormControl(""),
@@ -31,6 +35,7 @@ export class SubjectComponent implements OnInit {
   onSubmit(subject: Subject) {
     this.httpService.setSubject(subject).subscribe((result: Subject[]) => {
       this.listSubjects.push(result[0]);
+      this.table.renderRows();
       console.log(result);
     });
   }
@@ -52,8 +57,8 @@ export class SubjectComponent implements OnInit {
   update(id: number, prop: string) {
     if (this.editSubjectName) {
       prop = `{"subject_name": "${prop}"}`;
-      this.updateItem(id, prop);
       this.editSubjectName = undefined;
+      this.updateItem(id, prop);
     }
     if (this.editSubjectDescription) {
       prop = `{"subject_description": "${prop}"}`;
@@ -72,6 +77,7 @@ export class SubjectComponent implements OnInit {
         : -1;
       if (index > -1) {
         this.listSubjects[index] = result[0];
+        this.table.renderRows();
       }
     });
   }

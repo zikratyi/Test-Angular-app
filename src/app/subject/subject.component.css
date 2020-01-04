@@ -1,27 +1,10 @@
-table td {
-    padding: 0 5px;
-}
-.button {
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  cursor: hand;
-  font-family: Arial;
-}
-
-button:hover {
-  background-color: #cfd8dc;
-}
-
-button.delete {
-  background-color: gray !important;
-  color: white;
-  display: inherit;
-  padding: 5px 8px;
-  width: 2em;
-}
  a {
      text-decoration: none;
  }
+h4 {
+  margin: 10px 10px;
+  text-align: center;
+}
+table {
+  width: 100%;
+}
