@@ -16,26 +16,47 @@ const httpOptions = {
 })
 export class HttpService {
   serverUrl = "http://dtapi.if.ua";
+  
   constructor(private httpClient: HttpClient) {}
   /** POST: auth */
-  authUser(auth: Auth): Observable<any> {
+  authUser(auth: Auth): Observable<Auth> {
     const url = `${this.serverUrl}/login/index`;
-    return this.httpClient.post<any>(url, auth, httpOptions);
+    return this.httpClient.post<Auth>(url, auth, httpOptions);
   }
   /** GET logout */
   public logout(): Observable<any> {
     const url = `${this.serverUrl}/login/logout`;
     return this.httpClient.get(url);
   }
-  /** GET Faculty*/
-  public getFaculty(): Observable<any> {
-    const url = `${this.serverUrl}/Faculty/getRecords`;
+  /** GET all records*/
+  public getRecords(entity: string): Observable<any> {
+    const url = `${this.serverUrl}/${entity}/getRecords`;
     return this.httpClient.get(url);
   }
+    /** GET one record for id*/
+    public getRecord(entity: string, id: number): Observable<any> {
+      const url = `${this.serverUrl}/${entity}/getRecords/${id}`;
+      return this.httpClient.get(url);
+    }
+    /** GET range records with optional parameters: fieldName and direction (1 or -1) using for sorting data*/
+    public getRecordsRange(entity: string, limit: number, offset: number, fieldName: string = null, direction: number = 1): Observable<any> {
+      let url: string;
+      if (fieldName) {
+        url = `${this.serverUrl}/${entity}/getRecordsRange/${limit}/${offset}/${fieldName}/${direction}`;
+      }
+      else  {
+        url = `${this.serverUrl}/${entity}/getRecordsRange/${limit}/${offset}}`;
+      }
+      
+      return this.httpClient.get(url);
+    }
+
+
+
     /** GET Subject*/
     public getSubject(): Observable<any> {
       const url = `${this.serverUrl}/Subject/getRecords`;
-      return this.httpClient.get(url);
+      return this.httpClient.get(url).pipe();
     }
     /** POST Subject */
     public setSubject(subject: Subject): Observable<any> {
