@@ -8,3 +8,6 @@ h4 {
 table {
   width: 100%;
 }
+p, h1 {
+  text-align: center;
+}

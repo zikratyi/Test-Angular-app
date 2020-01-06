@@ -1,14 +1,21 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { HttpService } from "../services/http.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { Subject } from "./subject";
 import { MatTableDataSource, MatTable } from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  subject: Subject;
+}
 
 @Component({
   selector: "app-subject",
   templateUrl: "./subject.component.html",
   styleUrls: ["./subject.component.css"],
-  providers: [HttpService]
+  providers: [
+    HttpService,
+    MatDialog]
 })
 export class SubjectComponent implements OnInit {
   listSubjects: Subject[] = [];
@@ -23,7 +30,22 @@ export class SubjectComponent implements OnInit {
     subject_description: new FormControl("")
   });
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, public dialog: MatDialog) {}
+
+  // add modal window for confirm delete
+  openDialog(subject: Subject): void {
+    const dialogRef = this.dialog.open(SubjectComponentConfirmDelete, {
+      width: '300px',
+      data: {subject: subject}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.delete(result);
+      }
+    });
+  }
 
   ngOnInit() {
     this.httpService.getSubject().subscribe((result: Subject[]) => {
@@ -82,3 +104,21 @@ export class SubjectComponent implements OnInit {
     });
   }
 }
+
+@Component({
+  selector: "app-subject-confirmDelete",
+  templateUrl: "./subject.component.confirmDelete.html",
+  styleUrls: ["./subject.component.css"],
+})
+export class SubjectComponentConfirmDelete {
+
+  constructor(
+    public dialogRef: MatDialogRef<SubjectComponentConfirmDelete>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+/*   onNoClick(): void {
+    this.dialogRef.close();
+  } */
+
+}
+
