@@ -1,24 +1,5 @@
-h1 {
-  color: #369;
-  background-color: lightgray;
-  }
-body {
-  margin: 2em;
-}
 nav a {
-    padding: 5px 10px;
     text-decoration: none;
-    text-align: center;
-    margin-top: 10px;
-    min-width: 120px;
-    display: inline-block;
-    background-color: #eee;
-    border-radius: 4px;
+    padding-right: 10px;
   }
-a {
-    font-size: 2em;
-}
-ul {
-  font-size: 120%;
-}
 
