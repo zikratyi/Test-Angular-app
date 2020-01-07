@@ -21,9 +21,8 @@ export class SubjectComponent implements OnInit {
   listSubjects: Subject[] = [];
   editSubjectName: Subject;
   editSubjectDescription: Subject;
-  // opts: any = {static: true};
   @ViewChild('table', {static: true}) table: MatTable<Element>;
-  displayedColumns = ['id', 'name', 'description', 'but_del']
+  displayedColumns = ['id', 'name', 'description', 'but_edit','but_del']
   /** Create form for add new subject */
   subjectAddForm = new FormGroup({
     subject_name: new FormControl(""),
@@ -33,7 +32,7 @@ export class SubjectComponent implements OnInit {
   constructor(private httpService: HttpService, public dialog: MatDialog) {}
 
   // add modal window for confirm delete
-  openDialog(subject: Subject): void {
+  confirmDeleteDialog(subject: Subject): void {
     const dialogRef = this.dialog.open(SubjectComponentConfirmDelete, {
       width: '300px',
       data: {subject: subject}
@@ -43,6 +42,20 @@ export class SubjectComponent implements OnInit {
       console.log('The dialog was closed');
       if (result) {
         this.delete(result);
+      }
+    });
+  }
+  // Add modal window for edit Subject
+  editSubjectDialog(subject: Subject): void {
+    const dialogRef = this.dialog.open(SubjectComponentEdit, {
+      width: '300px',
+      data: {subject: subject}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.editSubject(result);
       }
     });
   }
@@ -76,21 +89,8 @@ export class SubjectComponent implements OnInit {
     this.editSubjectDescription = subject;
   }
   /** Update name or description current subject */
-  update(id: number, prop: string) {
-    if (this.editSubjectName) {
-      prop = `{"subject_name": "${prop}"}`;
-      this.editSubjectName = undefined;
-      this.updateItem(id, prop);
-    }
-    if (this.editSubjectDescription) {
-      prop = `{"subject_description": "${prop}"}`;
-      this.updateItem(id, prop);
-      this.editSubjectDescription = undefined;
-    }
-    
-  }
-  updateItem(id: number, prop: string) {
-    this.httpService.updateSubject(id, prop).subscribe((result: Subject[]) => {
+  editSubject(subject: Subject) {
+    this.httpService.updateSubject(subject).subscribe((result: Subject[]) => {
       console.log(result);
       const index: number = result
         ? this.listSubjects.findIndex(
@@ -104,7 +104,7 @@ export class SubjectComponent implements OnInit {
     });
   }
 }
-
+// Add Component for modal window Confirm
 @Component({
   selector: "app-subject-confirmDelete",
   templateUrl: "./subject.component.confirmDelete.html",
@@ -115,10 +115,18 @@ export class SubjectComponentConfirmDelete {
   constructor(
     public dialogRef: MatDialogRef<SubjectComponentConfirmDelete>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
 
-/*   onNoClick(): void {
-    this.dialogRef.close();
-  } */
+// Add Component for modal window Edit
+@Component({
+  selector: "app-subject-edit",
+  templateUrl: "./subject.component.edit.html",
+  styleUrls: ["./subject.component.css"],
+})
+export class SubjectComponentEdit {
 
+  constructor(
+    public dialogRef: MatDialogRef<SubjectComponentEdit>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }
 

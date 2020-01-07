@@ -64,9 +64,9 @@ export class HttpService {
       return this.httpClient.post(url,subject, httpOptions);
     }
     /** UPDATE Subject */
-    public updateSubject(id: number, property: string): Observable<any> {
-      const url = `${this.serverUrl}/Subject/update/${id}`;
-      return this.httpClient.post(url,property, httpOptions);
+    public updateSubject(subject: Subject): Observable<any> {
+      const url = `${this.serverUrl}/Subject/update/${subject.subject_id}`;
+      return this.httpClient.post(url, subject, httpOptions);
     }
     /** DELETE Subject */
     public delSubject(subject: Subject): Observable<any> {

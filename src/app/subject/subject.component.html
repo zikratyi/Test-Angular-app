@@ -44,53 +44,25 @@
   </ng-container>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let subject">
-      <a (click)="editName(subject)">
-        <span *ngIf="subject !== editSubjectName">{{
-          subject.subject_name
-        }}</span>
-        <mat-form-field *ngIf="subject === editSubjectName">
-          <input
-            matInput
-            #updateSubjectName
-            value="{{ subject.subject_name }}"
-            (blur)="update(subject.subject_id, updateSubjectName.value)"
-            (keyup.enter)="
-              update(subject.subject_id, updateSubjectName.value)
-            "
-          />
-        </mat-form-field>
-      </a>
-    </td>
+    <td mat-cell *matCellDef="let subject">{{subject.subject_name}}</td>
   </ng-container>
   <ng-container matColumnDef="description">
     <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let subject">{{subject.subject_description}}    </td>
+  </ng-container>
+  <ng-container matColumnDef="but_edit">
+    <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let subject">
-      <a (click)="editDescription(subject)">
-        <span *ngIf="subject !== editSubjectDescription">{{
-          subject.subject_description
-        }}</span>
-        <mat-form-field *ngIf="subject === editSubjectDescription">
-          <input
-            matInput
-            #updateSubjectDescription
-            value="{{ subject.subject_description }}"
-            (blur)="
-              update(subject.subject_id, updateSubjectDescription.value)
-            "
-            (keyup.enter)="
-              update(subject.subject_id, updateSubjectDescription.value)
-            "
-          />
-        </mat-form-field>
-      </a>
+      <button mat-raised-button color="accent" (click)="editSubjectDialog(subject)">
+        Edit
+      </button>
     </td>
   </ng-container>
   <ng-container matColumnDef="but_del">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let subject">
-      <button mat-button color="warn" (click)="openDialog(subject)">
-        x
+      <button mat-raised-button color="warn" (click)="confirmDeleteDialog(subject)">
+        Delete
       </button>
     </td>
   </ng-container>
