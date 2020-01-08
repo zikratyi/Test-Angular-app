@@ -60,6 +60,11 @@ export class HttpService {
       const url = `${this.serverUrl}/${entity}/del/${id}`;
       return this.httpClient.get(url);
     }
+    /** POST Update item for id */
+    public update(entity: string, id: number, data: any): Observable<any> {
+      const url = `${this.serverUrl}/${entity}/update/${id}`;
+      return this.httpClient.post(url,data, httpOptions);
+    }
 
     /** GET Subject*/
     public getSubject(): Observable<any> {

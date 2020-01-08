@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
 import { SubjectComponent, SubjectComponentConfirmDelete, SubjectComponentEdit } from './subject/subject.component';
-import { GroupComponent, GroupComponentAdd, GroupComponentDelete } from './group/group.component';
+import { GroupComponent, GroupComponentAdd, GroupComponentDelete, GroupComponentEdit } from './group/group.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'group', component: GroupComponent},
   { path: 'group_add', component: GroupComponentAdd },
   { path: 'group_delete', component: GroupComponentDelete },
+  { path: 'group_edit', component: GroupComponentEdit },
   { path: 'login', component: LoginComponent }
 ];
 
