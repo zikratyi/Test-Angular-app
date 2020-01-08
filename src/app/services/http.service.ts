@@ -50,13 +50,16 @@ export class HttpService {
       
       return this.httpClient.get(url);
     }
-
     /** POST Add new entity */
     public insertData(entity: string, data: any): Observable<any> {
       const url = `${this.serverUrl}/${entity}/insertData`;
       return this.httpClient.post(url,data, httpOptions);
     }
-
+    /** DELETE(GET) Entity for id */
+    public del(entity: string, id: number): Observable<any> {
+      const url = `${this.serverUrl}/${entity}/del/${id}`;
+      return this.httpClient.get(url);
+    }
 
     /** GET Subject*/
     public getSubject(): Observable<any> {

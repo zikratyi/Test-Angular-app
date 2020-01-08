@@ -18,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
-import { GroupComponent, GroupComponentAdd } from './group/group.component';
+import { GroupComponent, GroupComponentAdd, GroupComponentDelete } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { GroupComponent, GroupComponentAdd } from './group/group.component';
     SubjectComponentEdit,
     LoginComponent,
     GroupComponent,
-    GroupComponentAdd
+    GroupComponentAdd,
+    GroupComponentDelete
   ],
   imports: [
     BrowserModule,
