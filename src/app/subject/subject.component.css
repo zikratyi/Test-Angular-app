@@ -12,7 +12,6 @@ p,
 h1 {
   text-align: center;
 }
-input {
-  margin-left: 10px;
+mat-form-field {
   width: 100%;
 }

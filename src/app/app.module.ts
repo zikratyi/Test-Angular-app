@@ -11,11 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatButtonModule} from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { GroupComponent, GroupComponentAdd } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import {MatMenuModule} from '@angular/material/menu';
     SubjectComponent,
     SubjectComponentConfirmDelete,
     SubjectComponentEdit,
-    LoginComponent
+    LoginComponent,
+    GroupComponent,
+    GroupComponentAdd
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatTableModule,
     MatInputModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

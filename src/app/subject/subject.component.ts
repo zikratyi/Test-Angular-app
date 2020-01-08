@@ -15,12 +15,11 @@ export interface DialogData {
   styleUrls: ["./subject.component.css"],
   providers: [
     HttpService,
-    MatDialog]
+    MatDialog
+  ]
 })
 export class SubjectComponent implements OnInit {
   listSubjects: Subject[] = [];
-  editSubjectName: Subject;
-  editSubjectDescription: Subject;
   @ViewChild('table', {static: true}) table: MatTable<Element>;
   displayedColumns = ['id', 'name', 'description', 'but_edit','but_del']
   /** Create form for add new subject */
@@ -48,7 +47,7 @@ export class SubjectComponent implements OnInit {
   // Add modal window for edit Subject
   editSubjectDialog(subject: Subject): void {
     const dialogRef = this.dialog.open(SubjectComponentEdit, {
-      width: '300px',
+      width: '400px',
       data: {subject: subject}
     });
 
@@ -80,13 +79,6 @@ export class SubjectComponent implements OnInit {
     this.httpService.delSubject(subject).subscribe((result: Subject[]) => {
       console.log(result);
     });
-  }
-  /** Create field for edit */
-  editName(subject: Subject) {
-    this.editSubjectName = subject;
-  }
-  editDescription(subject: Subject) {
-    this.editSubjectDescription = subject;
   }
   /** Update name or description current subject */
   editSubject(subject: Subject) {

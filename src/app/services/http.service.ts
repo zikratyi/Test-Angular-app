@@ -51,6 +51,11 @@ export class HttpService {
       return this.httpClient.get(url);
     }
 
+    /** POST Add new entity */
+    public insertData(entity: string, data: any): Observable<any> {
+      const url = `${this.serverUrl}/${entity}/insertData`;
+      return this.httpClient.post(url,data, httpOptions);
+    }
 
 
     /** GET Subject*/
