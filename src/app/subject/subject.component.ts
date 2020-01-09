@@ -20,8 +20,10 @@ export interface DialogData {
 })
 export class SubjectComponent implements OnInit {
   listSubjects: Subject[] = [];
+
   @ViewChild('table', {static: true}) table: MatTable<Element>;
   displayedColumns = ['id', 'name', 'description', 'but_edit','but_del']
+  
   /** Create form for add new subject */
   subjectAddForm = new FormGroup({
     subject_name: new FormControl(""),
@@ -60,9 +62,11 @@ export class SubjectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpService.getSubject().subscribe((result: Subject[]) => {
+    this.httpService.getRecords('subject').subscribe((result: Subject[]) => {
       this.listSubjects = result;
       console.log(result);
+    }, (error: any) => {
+      alert("Bad request");
     });
   }
   /** Add new subject*/
