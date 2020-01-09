@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { HttpService } from "../services/http.service";
-import { FormGroup, FormControl } from "@angular/forms";
 import { Group } from "./group";
 import { MatTableDataSource, MatTable } from "@angular/material";
 import { MatPaginator } from "@angular/material/paginator";
@@ -9,10 +8,9 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
-import { group } from "@angular/animations";
 
 export interface DialogData {
-  subject: Group;
+  data: any;
 }
 
 export interface Speciality {
@@ -39,8 +37,7 @@ export class GroupComponent implements OnInit {
   displayedColumns: string[] = [
     "id",
     "name",
-    "speciality",
-    "faculty",
+    "but_student",
     "but_edit",
     "but_del"
   ];
@@ -107,6 +104,8 @@ export class GroupComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
       console.log(result);
+    }, (error: any) => {
+      alert("You don't delete group with students!");
     });
   }
   // add modal window for edit group
@@ -135,10 +134,43 @@ export class GroupComponent implements OnInit {
         : -1;
       if (index > -1) {
         this.listGroups[index] = result[0];
+        console.log(this.dataSource.data);
         this.table.renderRows();
       }
     });
   }
+
+  // add modal window for view groups by speciality or faculty
+  viewGroupDialog(action: string): void {
+    const dialogRef = this.dialog.open(GroupComponentView, {
+      width: "500px",
+      data: {action: action}
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      console.log(result);
+      if (result) {
+        this.viewGroups(result.action, result.id);
+      }
+    });
+  }
+  /** View groups by speciality or faculty */
+  viewGroups(action: string, id: number): void {
+    this.httpService.getGroups(action, id).subscribe((result: any) => {
+      console.log(result);
+      if (result.hasOwnProperty('response')) {
+        this.dataSource.data = [];
+        //this.table.renderRows();
+      }
+      else {
+        this.dataSource.data = result;
+        this.table.renderRows();
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
+
 }
 
 // Add Component for modal window Add
@@ -197,6 +229,36 @@ export class GroupComponentEdit implements OnInit {
   constructor(
     private httpService: HttpService,
     public dialogRef: MatDialogRef<GroupComponentEdit>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
+
+  ngOnInit() {
+    this.httpService
+      .getRecords("speciality")
+      .subscribe((result: Speciality[]) => {
+        this.specialities = result;
+        console.log(this.specialities);
+      });
+    this.httpService.getRecords("faculty").subscribe((result: Faculty[]) => {
+      this.faculties = result;
+      console.log(this.faculties);
+    });
+  }
+}
+
+// Add Component for modal window View
+@Component({
+  selector: "app-group-view",
+  templateUrl: "./group.component.view.html",
+  styleUrls: ["./group.component.css"]
+})
+export class GroupComponentView implements OnInit {
+  specialities: Speciality[] = [];
+  faculties: Faculty[] = [];
+
+  constructor(
+    private httpService: HttpService,
+    public dialogRef: MatDialogRef<GroupComponentView>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

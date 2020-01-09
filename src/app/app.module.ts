@@ -1,24 +1,35 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
-import { TutorialsComponent } from './tutorials/tutorials.component';
-import { SubjectComponent, SubjectComponentConfirmDelete, SubjectComponentEdit } from './subject/subject.component';
-import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { AboutComponent } from "./about/about.component";
+import { TutorialsComponent } from "./tutorials/tutorials.component";
+import {
+  SubjectComponent,
+  SubjectComponentConfirmDelete,
+  SubjectComponentEdit
+} from "./subject/subject.component";
+import { FormsModule } from "@angular/forms";
+import { LoginComponent } from "./login/login.component";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material';
-import { MatSelectModule } from '@angular/material/select';
-import { GroupComponent, GroupComponentAdd, GroupComponentDelete, GroupComponentEdit } from './group/group.component';
+import { MatButtonModule } from "@angular/material/button";
+import { MatTableModule } from "@angular/material/table";
+import { MatInputModule } from "@angular/material/input";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatPaginatorModule } from "@angular/material";
+import { MatSelectModule } from "@angular/material/select";
+import {
+  GroupComponent,
+  GroupComponentAdd,
+  GroupComponentDelete,
+  GroupComponentEdit,
+  GroupComponentView
+} from "./group/group.component";
+import { SharedComponent } from './shared/shared.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +43,9 @@ import { GroupComponent, GroupComponentAdd, GroupComponentDelete, GroupComponent
     GroupComponent,
     GroupComponentAdd,
     GroupComponentDelete,
-    GroupComponentEdit
+    GroupComponentEdit,
+    GroupComponentView,
+    SharedComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +59,9 @@ import { GroupComponent, GroupComponentAdd, GroupComponentDelete, GroupComponent
     MatDialogModule,
     MatMenuModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

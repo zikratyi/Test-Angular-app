@@ -65,6 +65,13 @@ export class HttpService {
       const url = `${this.serverUrl}/${entity}/update/${id}`;
       return this.httpClient.post(url,data, httpOptions);
     }
+    /** Method only for group */
+    /** GET Get groups by speciality (action: getGroupsBySpeciality) or faculty (action: getGroupsByFaculty) */
+    public getGroups(action: string, id: number): Observable<any> {
+      const url = `${this.serverUrl}/group/${action}/${id}`;
+      return this.httpClient.get(url);
+    }
+
 
     /** GET Subject*/
     public getSubject(): Observable<any> {
